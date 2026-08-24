@@ -1,8 +1,5 @@
 # Decoding Capital Flow in Climate Finance
 ### A Machine Learning Analysis of Global Climate Finance Per Capita
-**MSc Data Science · York St John University · 2026**
-**Student:** Olamilekan John Olowolagba | **Module Director:** Sangita Pokhrel
-
 ---
 
 ## Table of Contents
@@ -21,25 +18,25 @@
 
 ### The Problem
 
-Despite global climate finance reaching **$1.2 trillion** in 2023 and repeated pledges from developed nations to direct funds toward the most vulnerable countries, the allocation of climate finance remains deeply disproportionate. Middle-income countries continue to receive greater funding than far more vulnerable regions such as Sub-Saharan Africa and South Asia — regions that bear the heaviest burden of climate-related losses.
+Despite global climate finance reaching **$1.2 trillion** in 2023 and repeated pledges from developed nations to direct funds toward the most vulnerable countries, the allocation of climate finance remains deeply disproportionate. Middle-income countries continue to receive greater funding than far more vulnerable regions such as Sub-Saharan Africa and South Asia, regions that bear the heaviest burden of climate-related losses.
 
-Annual climate-related economic losses reached **$2.4 billion** (EM-DAT, 2026), and an estimated **80% of countries** fall into high or medium physical risk categories. Yet the flow of international finance does not reflect this distribution of need.
+Annual climate-related economic losses reached **$2.4 billion**, and an estimated **80% of countries** fall into high or medium physical risk categories. Yet the flow of international finance does not reflect this distribution of need.
 
 ### The Research Question
 
-> *Does objective climate vulnerability predict the allocation of international climate finance per capita, or does capital follow wealth?*
+> *Does objective climate vulnerability predict the allocation of international climate finance per capita?*
 
-This project applies supervised machine learning across a panel of **117 countries from 2000 to 2023** to answer this question quantitatively. Rather than relying on descriptive statistics alone, three ML models — Ordinary Least Squares (OLS), Random Forest, and XGBoost — are used to identify which country characteristics actually drive how much climate finance each nation receives per person.
+This project applies supervised machine learning across a panel of **117 countries from 2000 to 2023** to answer this question quantitatively. Rather than relying on descriptive statistics alone, three ML models — Ordinary Linear Regression, Random Forest, and XGBoost, are used to identify what factors actually drive how much climate finance each nation recieves. 
 
 ### Key Finding
 
-Machine learning models reveal that **climate vulnerability plays a minimal role (2%)** in explaining finance allocation. Within the 18% of variance the models explain, **population is the dominant predictor**, followed by income and emissions profile. Physical climate risk is statistically weak — indicating a systematic misalignment between finance flows and objective climate need.
+Machine learning models reveal that **climate vulnerability plays a minimal role (2%)** in explaining finance allocation. Within the 18% of variance the models explain, **population is the dominant predictor**, followed by inflation rate (CPI) and then GPD per capita. Physical climate vulnerability is statistically weak, indicating a systematic misalignment between finance flows and objective climate need. 
 
 ---
 
 ## 2. Data Structure Overview
 
-The project uses a **panel dataset** — one row per country per year — constructed by merging four open-access datasets on the shared key of ISO 3166 alpha-3 country codes and year.
+The project uses a **panel dataset** constructed by merging four open-access datasets on the shared key of ISO 3166 alpha-3 country codes and year.
 
 ### Data Sources
 
@@ -47,7 +44,7 @@ The project uses a **panel dataset** — one row per country per year — constr
 |---|---|---|---|
 | OECD Climate-Related Development Finance (CRDF) | OECD.stat | 2000–2023 | Target variable — climate finance flows by country-year |
 | ND-GAIN Country Index | Notre Dame University | 1995–2022 | Physical risk features — vulnerability and readiness scores |
-| World Bank Open Data | data.worldbank.org | 2000–2023 | Macroeconomic controls — GDP, population, CO₂, governance |
+| World Bank Open Data | data.worldbank.org | 2000–2025 | Macroeconomic controls — GDP, population, CO₂, governance |
 | EM-DAT International Disaster Database | CRED, UCLouvain | 2000–2023 | Realised climate losses — disaster economic damages by country-year |
 
 ### Panel Dimensions
@@ -77,7 +74,7 @@ The project uses a **panel dataset** — one row per country per year — constr
 
 ## 3. Executive Summary
 
-This project investigates whether physical climate vulnerability — measured using the ND-GAIN Country Index — predicts how much international climate finance a country receives per capita, after controlling for economic, demographic, and governance factors.
+This project investigates whether physical climate vulnerability predicts how much international climate finance a country receives, after controlling for economic, demographic, and governance factors.
 
 **Three supervised ML models** were trained and evaluated using cross-validation:
 
@@ -92,9 +89,9 @@ This project investigates whether physical climate vulnerability — measured us
 **SHAP feature importance analysis** reveals:
 - **Population** is the dominant predictor of finance received
 - **Physical climate vulnerability** accounts for only **2%** of explained variance
-- Income and emissions profile are stronger predictors than climate risk
+- Inflation (CPI) and Gross Domestic Product (GDP) profile are stronger predictors than climate risk
 
-**Conclusion:** Capital follows demographic and economic capacity, not vulnerability. The international climate finance system is not allocating on the basis of measurable climate need.
+**Conclusion:** Capital follows demographic and economic capacity, and potentially other political and institutional dynamics, not vulnerability. The international climate finance system is not allocating on the basis of measurable climate need.
 
 ---
 
@@ -104,19 +101,27 @@ This project investigates whether physical climate vulnerability — measured us
 
 Climate finance is geographically concentrated. Raw finance flows show the largest allocations going to **South Asia, Europe, and South America**. However, when adjusted for population — converting to per capita terms — **Africa receives higher relative allocations**, revealing that the metric used to assess equity fundamentally shapes the conclusions drawn.
 
-> **Insight:** Perceived fairness in climate finance depends entirely on the denominator. Absolute flows favour large economies; per capita flows favour smaller ones. Neither fully captures vulnerability-adjusted need.
+![alt text](image-4.png)
+
+![alt text](image-5.png)
+
+> **Insight:** Perceived fairness in climate finance depends entirely on the denominator. Absolute flows favour large economies; per capita flows favour smaller ones. Neither fully captures vulnerability-adjusted needs.
 
 ### 4.2 Where the Risk Is
 
-The physical risk map tells a sharply different geographic story. **Sub-Saharan Africa, South Asia, and small island developing states** carry the highest composite hazard scores across flood, heat, and drought indicators. These regions overlap minimally with the high-finance zones identified above.
+The physical risk map tells a sharply different geographic story. **Sub-Saharan Africa, South Asia, and small island developing states** carry the highest composite hazard scores across impact indicators. These regions overlap minimally with the high-finance zones identified above.
 
-> **Insight:** The two maps — finance and risk — show divergent geographies. A viewer can see the mismatch without reading a single data point.
+![alt text](image-2.png)
+
+> **Insight:** The two maps, finance and risk, show divergent geographies. A viewer can see the mismatch without reading a single data point.
 
 ### 4.3 The Mismatch
 
 The scatter plot of physical risk index against log climate finance per capita makes the structural misalignment explicit at country level. Several **low to medium risk countries** — such as Antigua and Barbuda — receive substantially higher mitigation and adaptation finance than **higher-risk countries** including Bangladesh and Mauritania.
 
 Colouring each country by GDP per capita reveals the confounding factor: wealthier countries cluster toward higher finance regardless of their risk level.
+
+![alt text](image-3.png)
 
 > **Insight:** After accounting for GDP, physical risk has almost no independent relationship with how much finance a country receives per person.
 
@@ -125,18 +130,24 @@ Colouring each country by GDP per capita reveals the confounding factor: wealthi
 Within the 18% of variance explained by the models, SHAP analysis ranks the predictors as follows:
 
 1. **Population** — dominant predictor (largest mean absolute SHAP value)
-2. **GDP per capita** — strong positive effect
-3. **CO₂ emissions per capita** — moderate positive effect
-4. **Institutional quality** — moderate positive effect
+2. **Inflation rate (CPI)** - less positive effect
+3. **GDP per capita** — lesser positive effect
+4. **Institutional quality** — lesser positive effect
 5. **Physical risk index** — minimal role (~2% of explained variance)
 
-The minimal performance gap between the linear OLS model (14.26%) and the best non-linear model XGBoost (18.39%) suggests that the relationships in the data are largely linear — further implying that the drivers of allocation are structural and relatively simple: larger, wealthier, higher-emitting countries attract more finance.
+The minimal performance gap between the linear OLS model (14.26%) and the best non-linear model XGBoost (18.39%) suggests that while linear trends are present, substantial non-linear relationships and feature interactions exist within the predictable component of the dataset. This implies that physical vulnerability does not primarily shape allocation outcomes. CPI and GDP postiive effect on model output also implies that more stable and wealthier economies recieve far more allocations despite facing significantly lesser climate risk. 
+
+![alt text](image-1.png)
+
+![alt text](image-6.png)
 
 > **Insight:** The system rewards capacity, not need. Countries with larger populations and stronger economies absorb more climate finance, independent of how exposed they are to climate hazards.
 
 ### 4.5 Trend and Outlook
 
 The time series from 2000 to 2023 shows climate finance growing slowly and steadily, while climate-related economic damages are volatile and accelerating — with a dramatic spike around 2019–2020 reflecting compounding global climate events. Finance remains severely outpaced by damages throughout the entire period.
+
+![alt text](image.png)
 
 > **Insight:** The gap between what climate change costs and what is being spent to address it is structural and widening — not a temporary shortfall.
 
@@ -148,13 +159,13 @@ The time series from 2000 to 2023 shows climate finance growing slowly and stead
 
 Rather than selecting a single year (e.g. 2020), ND-GAIN vulnerability and readiness scores were averaged across all available years for each country. This decision was made because:
 
-- ND-GAIN scores change slowly — they reflect structural country characteristics such as geography, infrastructure, and governance
+- ND-GAIN scores change slowly, they reflect structural country characteristics such as geography, infrastructure, and governance
 - Picking one year introduces arbitrary sensitivity to short-term fluctuations
 - Averaging produces a more stable, robust measure of underlying risk profile
 
 ### 5.2 Why Log Transformation Was Applied
 
-GDP per capita, finance per capita, damages per capita, CO₂ per capita, and population are all heavily right-skewed — a small number of countries have values many times larger than the majority. Log transformation was applied to:
+GDP per capita, finance per capita, damages per capita, CO₂ per capita, and population are all heavily right-skewed, a small number of countries have values many times larger than the majority. Log transformation was applied to:
 
 - Compress extreme values and reduce the influence of outliers
 - Convert multiplicative relationships to additive ones — a percentage change in GDP is comparable across rich and poor countries; a unit change in raw GDP is not
@@ -162,11 +173,7 @@ GDP per capita, finance per capita, damages per capita, CO₂ per capita, and po
 
 The physical risk index (bounded 0–1) and institutional quality (symmetric around zero) were not log-transformed as they do not exhibit the same skewness.
 
-### 5.3 Why OLS Was Included Alongside Tree Models
-
-Linear Regression serves as an interpretable baseline. The close performance of OLS (14.26%) to Random Forest (17.52%) and XGBoost (18.39%) is analytically meaningful — it suggests the relationships in the data are largely linear. If non-linear models had substantially outperformed OLS, that would indicate complex interaction effects worth exploring further.
-
-### 5.4 Why SHAP Was Used for Feature Importance
+### 5.3 Why SHAP Was Used for Feature Importance
 
 SHAP (SHapley Additive exPlanations) was chosen over impurity-based (Gini) importance because:
 
@@ -174,11 +181,11 @@ SHAP (SHapley Additive exPlanations) was chosen over impurity-based (Gini) impor
 - SHAP provides consistent, theoretically grounded attribution based on cooperative game theory
 - SHAP values are directional — they show not just which features matter but whether high values push predictions up or down
 
-### 5.5 Why the Target Variable Is Per Capita Not Absolute
+### 5.4 Why the Target Variable Is Per Capita Not Absolute
 
 Dividing climate finance by population rather than reporting raw dollar totals ensures comparability across countries of very different sizes. A $1 billion flow means very different things for Germany (83 million people) versus Mozambique (33 million people). Per capita normalisation asks the right question: how much climate finance does each person in this country receive?
 
-### 5.6 Composite Index Construction
+### 5.5 Composite Index Construction
 
 Two composite features were engineered:
 
@@ -220,23 +227,12 @@ Both World Bank governance indicators are on comparable scales ranging from appr
 
 **Issue:** All three models achieved R² below 20%, which initially appeared to signal model failure.
 
-**Solution:** This was reframed as a substantive analytical finding rather than a technical problem. The low R² indicates that observable country characteristics — including physical risk, GDP, governance, and emissions — explain only a minority of variance in finance allocation. Unobserved political factors, bilateral agreements, and donor institutional preferences are the dominant drivers. This conclusion is well-supported in the climate finance literature and is itself a meaningful contribution.
+**Solution:** This was reframed as a substantive analytical finding rather than a technical problem. The low R² indicates that observable country characteristics — including physical risk, GDP, governance, and emissions — explain only a minority of variance in finance allocation. Unobserved political factors, bilateral agreements, and donor institutional preferences may be more dominant drivers. This conclusion is well-supported in the climate finance literature and is itself a meaningful contribution.
 
-### Problem 6 — Plotly Maps Not Saving as PNG
-
-**Issue:** Maps generated using Plotly saved as blank white images when using `fig.write_image()` due to conflicts between the kaleido library and the Jupyter async environment on macOS.
-
-**Solution:** Maps were saved as interactive HTML files using `fig.write_html()`, then captured at high resolution using Chrome's built-in full-page screenshot tool (Developer Tools → Capture full size screenshot). This produced high-resolution images suitable for poster inclusion without any dependency conflicts.
-
-### Problem 7 — SHAP Waterfall Plot Saving as Blank
-
-**Issue:** `shap.plots.waterfall()` renders immediately to the display rather than into a matplotlib figure buffer, causing `plt.savefig()` to capture a blank canvas.
-
-**Solution:** Added `show=False` to the SHAP call to suppress immediate rendering, then used `plt.gcf()` to retrieve the active figure before saving. This captured the plot correctly at 300 DPI.
 
 ---
 
-## 7. Recommendations
+## 7. Recommendations for Action and Future Work
 
 ### 7.1 Adopt Risk-Weighted Allocation Criteria
 
@@ -248,7 +244,7 @@ The current analysis combines grants, concessional loans, and private equity int
 
 ### 7.3 Expand and Standardise Country-Level Reporting
 
-The restriction of this analysis to OECD CRDF data — because CPI does not provide country-level breakdowns — highlights a critical data gap. A standardised, mandatory country-level climate finance reporting framework would enable more rigorous accountability and research. The UNFCCC Biennial Transparency Reports are a step in this direction but remain inconsistently implemented.
+The restriction of this analysis to OECD CRDF data because Global Landscape of Climate Finance (GLCF) data does not provide country-level breakdowns, highlights a critical data gap. A standardised, mandatory country-level climate finance reporting framework would enable more rigorous accountability and research. The UNFCCC Biennial Transparency Reports are a step in this direction but remain inconsistently implemented.
 
 ### 7.4 Use Swiss Re Catastrophe Data to Supplement EM-DAT
 
@@ -321,4 +317,5 @@ pip install pandas numpy matplotlib seaborn scikit-learn xgboost shap geopandas 
 
 ---
 
-*MSc Data Science · York St John University · London Campus · 2026*
+
+
