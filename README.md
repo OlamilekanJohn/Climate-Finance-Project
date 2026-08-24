@@ -26,11 +26,11 @@ Annual climate-related economic losses reached **$2.4 billion**, and an estimate
 
 > *Does objective climate vulnerability predict the allocation of international climate finance per capita?*
 
-This project applies supervised machine learning across a panel of **117 countries from 2000 to 2023** to answer this question quantitatively. Rather than relying on descriptive statistics alone, three ML models — Ordinary Linear Regression, Random Forest, and XGBoost, are used to identify what factors actually drive how much climate finance each nation recieves. 
+This project applies supervised machine learning across a panel of **117 countries from 2000 to 2023** to answer this question quantitatively. Rather than relying on descriptive statistics alone, three ML models — Ordinary Linear Regression, Random Forest, and XGBoost- are used to identify what factors actually drive how much climate finance each nation receives. 
 
 ### Key Finding
 
-Machine learning models reveal that **climate vulnerability plays a minimal role (2%)** in explaining finance allocation. Within the 18% of variance the models explain, **population is the dominant predictor**, followed by inflation rate (CPI) and then GPD per capita. Physical climate vulnerability is statistically weak, indicating a systematic misalignment between finance flows and objective climate need. 
+Machine learning models reveal that **climate vulnerability plays a minimal role (2%)** in explaining finance allocation. Within the 18% of variance the models explain, **population is the dominant predictor**, followed by inflation rate (CPI) and then GDP per capita. Physical climate vulnerability is statistically weak, indicating a systematic misalignment between finance flows and objective climate need. 
 
 ---
 
@@ -117,7 +117,7 @@ The physical risk map tells a sharply different geographic story. **Sub-Saharan 
 
 ### 4.3 The Mismatch
 
-The scatter plot of physical risk index against log climate finance per capita makes the structural misalignment explicit at country level. Several **low to medium risk countries** — such as Antigua and Barbuda — receive substantially higher mitigation and adaptation finance than **higher-risk countries** including Bangladesh and Mauritania.
+The scatter plot of physical risk index against log climate finance per capita makes the structural misalignment explicit at the country level. Several **low to medium risk countries** — such as Antigua and Barbuda receive substantially higher mitigation and adaptation finance than **higher-risk countries** including Bangladesh and Mauritania.
 
 Colouring each country by GDP per capita reveals the confounding factor: wealthier countries cluster toward higher finance regardless of their risk level.
 
@@ -135,7 +135,7 @@ Within the 18% of variance explained by the models, SHAP analysis ranks the pred
 4. **Institutional quality** — lesser positive effect
 5. **Physical risk index** — minimal role (~2% of explained variance)
 
-The minimal performance gap between the linear OLS model (14.26%) and the best non-linear model XGBoost (18.39%) suggests that while linear trends are present, substantial non-linear relationships and feature interactions exist within the predictable component of the dataset. This implies that physical vulnerability does not primarily shape allocation outcomes. CPI and GDP postiive effect on model output also implies that more stable and wealthier economies recieve far more allocations despite facing significantly lesser climate risk. 
+The small performance gap between the linear OLS model (14.26%) and the best non-linear model, XGBoost (18.39%), suggests that while linear trends are present, substantial non-linear relationships and feature interactions exist within the predictable component of the dataset. This implies that physical vulnerability does not primarily shape allocation outcomes. The positive effect of CPI and GDP on model output also implies that more stable and wealthier economies receive far more allocations despite facing significantly less climate risk. 
 
 ![alt text](image-1.png)
 
@@ -159,13 +159,13 @@ The time series from 2000 to 2023 shows climate finance growing slowly and stead
 
 Rather than selecting a single year (e.g. 2020), ND-GAIN vulnerability and readiness scores were averaged across all available years for each country. This decision was made because:
 
-- ND-GAIN scores change slowly, they reflect structural country characteristics such as geography, infrastructure, and governance
+- ND-GAIN scores change slowly; they reflect structural country characteristics such as geography, infrastructure, and governance
 - Picking one year introduces arbitrary sensitivity to short-term fluctuations
 - Averaging produces a more stable, robust measure of underlying risk profile
 
 ### 5.2 Why Log Transformation Was Applied
 
-GDP per capita, finance per capita, damages per capita, CO₂ per capita, and population are all heavily right-skewed, a small number of countries have values many times larger than the majority. Log transformation was applied to:
+GDP per capita, finance per capita, damages per capita, CO₂ per capita, and population are all heavily right-skewed; a small number of countries have values many times larger than the majority. Log transformation was applied to:
 
 - Compress extreme values and reduce the influence of outliers
 - Convert multiplicative relationships to additive ones — a percentage change in GDP is comparable across rich and poor countries; a unit change in raw GDP is not
@@ -181,7 +181,7 @@ SHAP (SHapley Additive exPlanations) was chosen over impurity-based (Gini) impor
 - SHAP provides consistent, theoretically grounded attribution based on cooperative game theory
 - SHAP values are directional — they show not just which features matter but whether high values push predictions up or down
 
-### 5.4 Why the Target Variable Is Per Capita Not Absolute
+### 5.4 Why the Target Variable Is Per Capita, Not Absolute
 
 Dividing climate finance by population rather than reporting raw dollar totals ensures comparability across countries of very different sizes. A $1 billion flow means very different things for Germany (83 million people) versus Mozambique (33 million people). Per capita normalisation asks the right question: how much climate finance does each person in this country receive?
 
@@ -203,11 +203,11 @@ Both World Bank governance indicators are on comparable scales ranging from appr
 
 **Issue:** The Climate Policy Initiative (CPI) Global Landscape of Climate Finance — the most widely cited source — reports finance in regional aggregates rather than by individual country. This made it unsuitable as the primary data source for a country-level analysis.
 
-**Solution:** Switched to the OECD Climate-Related Development Finance (CRDF) dataset, which provides country-year level finance flows. This restricted the sample to OECD-reported flows but enabled the panel structure required for modelling.
+**Solution:** Switched to the OECD Climate-Related Development Finance (CRDF) dataset, which provides country-year-level finance flows. This restricted the sample to OECD-reported flows but enabled the panel structure required for modelling.
 
 ### Problem 2 — Substantial Missing Values in EM-DAT Damage Data
 
-**Issue:** Many country-year combinations had no recorded disaster damage — not because damages were zero, but because EM-DAT only records events that cross reporting thresholds. This created ambiguity between true zeros and missing data.
+**Issue:** Many country-year combinations had no recorded disaster damage, not because damages were zero, but because EM-DAT only records events that cross reporting thresholds. This created ambiguity between true zeros and missing data.
 
 **Solution:** Damages were imputed as zero where no records existed, with this decision explicitly documented as a potential source of model bias. Countries with frequent small-scale losses below the reporting threshold are likely underrepresented.
 
@@ -219,7 +219,7 @@ Both World Bank governance indicators are on comparable scales ranging from appr
 
 ### Problem 4 — Higher-Income Countries Underreported in Finance Data
 
-**Issue:** Finance allocations for several higher-income countries — including the UK, US, Canada, Australia, and China — are missing or underreported in the OECD CRDF data, likely because these countries are primarily donors rather than recipients.
+**Issue:** Finance allocations for several higher-income countries, including the UK, US, Canada, Australia, and China, are missing or underreported in the OECD CRDF data, likely because these countries are primarily donors rather than recipients.
 
 **Solution:** This was treated as a data limitation and documented explicitly. The analysis focuses on recipient countries, and the absence of major donors from the target variable does not distort the core research question about vulnerability-to-finance alignment.
 
@@ -227,7 +227,7 @@ Both World Bank governance indicators are on comparable scales ranging from appr
 
 **Issue:** All three models achieved R² below 20%, which initially appeared to signal model failure.
 
-**Solution:** This was reframed as a substantive analytical finding rather than a technical problem. The low R² indicates that observable country characteristics — including physical risk, GDP, governance, and emissions — explain only a minority of variance in finance allocation. Unobserved political factors, bilateral agreements, and donor institutional preferences may be more dominant drivers. This conclusion is well-supported in the climate finance literature and is itself a meaningful contribution.
+**Solution:** This was reframed as a substantive analytical finding rather than a technical problem. The low R² indicates that observable country characteristics — including physical risk, GDP, governance, and emissions explain only a minority of variance in finance allocation. Unobserved political factors, bilateral agreements, and donor institutional preferences may be more dominant drivers. This conclusion is well-supported in the climate finance literature and is itself a meaningful contribution.
 
 
 ---
@@ -236,7 +236,7 @@ Both World Bank governance indicators are on comparable scales ranging from appr
 
 ### 7.1 Adopt Risk-Weighted Allocation Criteria
 
-International climate finance governance frameworks — including the OECD Development Assistance Committee reporting standards and multilateral fund eligibility criteria — should incorporate explicit vulnerability weighting in allocation decisions. Countries above a defined physical risk threshold should receive priority access to adaptation finance, independent of their economic size.
+International climate finance governance frameworks, including the OECD Development Assistance Committee reporting standards and multilateral fund eligibility criteria, should incorporate explicit vulnerability weighting in allocation decisions. Countries above a defined physical risk threshold should receive priority access to adaptation finance, independent of their economic size.
 
 ### 7.2 Disaggregate Public from Private Finance
 
@@ -256,7 +256,7 @@ The analysis treats all climate finance as a single pool, but adaptation and mit
 
 ### 7.6 Investigate Political and Institutional Drivers
 
-Given that observable country characteristics explain only 18% of variance in finance allocation, the dominant drivers are almost certainly unobserved — bilateral political relationships, colonial history, trade ties with major donor nations, and participation in specific climate finance frameworks such as the Green Climate Fund. Future work should apply qualitative comparative analysis or network methods to map these political economy factors explicitly.
+Given that observable country characteristics explain only 18% of variance in finance allocation, the dominant drivers are almost certainly unobserved bilateral political relationships, colonial history, trade ties with major donor nations, and participation in specific climate finance frameworks such as the Green Climate Fund. Future work should apply qualitative comparative analysis or network methods to map these political economy factors explicitly.
 
 ---
 
